@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Transactions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+<body>
+
+    <div class="tab-content mt-3" id="reportTabContent" th:fragment="equipmentTable">
+        <div class="tab-pane fade show active" id="allbtn" role="tabpanel" aria-labelledby="allbtn-tab">
+            <table class="table table-striped table-custom">
+                <thead>
+                    <tr>
+                        <th>Equipment Name</th>
+                        <th>Renter</th>
+                        <th>Rentee</th>
+                        <th>Price</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="transaction : ${equipmentTransactions}">
+                        <td th:text="${transaction.equipmentName}"></td>
+                        <td th:text="${transaction.renter}"></td>
+                        <td th:text="${transaction.rentee}"></td>
+                        <td th:text="'₱' + ${#numbers.formatDecimal(transaction.price, 0, 'COMMA', 2, 'POINT')}"></td>
+                        <td th:text="${#dates.format(transaction.startDate, 'MMM dd, yyyy')}"></td>
+                        <td th:text="${#dates.format(transaction.endDate, 'MMM dd, yyyy')}"></td>
+                        <td>
+                            <a th:href="@{/equipment/{id}(id=${transaction.equipmentId})}" class="btn btn-sm btn-custom">View Details</a>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+ <!-- Bootstrap JS and dependencies -->
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Navigation Menu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css"> 
+</head>
+<body>
+    <div class="nav flex-column sidebar" th:fragment="sidebar" th:with="activePage=${activePage}">
+        <a class="nav-link" th:classappend="${activePage == 'dashboard'} ? 'active'" th:href="@{/dashboard}">
+            <span class="icon"><i class="bi bi-house-fill"></i></span> Dashboard
+        </a>
+        <a class="nav-link" th:classappend="${activePage == 'users'} ? 'active'" th:href="@{/users}">
+            <span class="icon"><i class="bi bi-person-fill"></i></span> Users
+        </a>
+        <a class="nav-link" th:classappend="${activePage == 'products'} ? 'active'" th:href="@{/products}">
+            <span class="icon"><i class="bi bi-bag-fill"></i></span> Products
+        </a>
+        <a class="nav-link" th:classappend="${activePage == 'equipments'} ? 'active'" th:href="@{/equipments}">
+            <span class="icon"><i class="bi bi-truck-front-fill"></i></span> Equipment
+        </a>
+        <a class="nav-link" th:classappend="${activePage == 'transactions'} ? 'active'" th:href="@{/transactions}">
+            <span class="icon"><i class="bi bi-wallet-fill"></i></span> Transactions
+        </a>
+        <a class="nav-link" th:classappend="${activePage == 'reports'} ? 'active'" th:href="@{/reports}">
+            <span class="icon"><i class="bi bi-flag-fill"></i></span> Reports
+        </a>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

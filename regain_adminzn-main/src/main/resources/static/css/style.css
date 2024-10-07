@@ -1,0 +1,317 @@
+body{
+    background-color: #F5F7FA;
+}
+
+/* header design */
+.navbar {
+    background: #ffffff; 
+    padding: 10px 20px; 
+    position: static;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none; 
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+}
+
+.navbar-title {
+    color: #3C3C3C;
+    font-weight: bold;
+}
+
+.navbar-pgTitle{
+    color: #3C3C3C;
+    margin-left: 40%;
+    font-weight: bold;
+}
+
+.form-control.search-bar {
+    width: auto; 
+    max-width: 200px; 
+}
+
+.profilePic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%; 
+}
+
+.profile-dropdown {
+    cursor: pointer;
+}
+
+/* User Page - Main Content Design */
+.cont-custom{
+    margin-left: 16.5%;
+    padding: 0;
+}
+
+.user-heading{
+    color: #3C3C3C;
+    padding-top: 25px;
+    margin-left: 17%;
+    float: none;
+}
+
+/* User Page - Tab buttons design */
+.nav-tabs .nav-link {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #718EBF;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+.nav-tabs .nav-link.active {
+    border-bottom: 2px solid #12CF8A;
+    color: #12CF8A;
+    background-color: transparent;
+}
+
+
+
+/* Table design */
+.table-custom {
+    background-color: white;
+    border-radius: 25px;
+    overflow: hidden;
+}
+.table-custom th, .table-custom td {
+    border: none;
+}
+
+.table-custom th {
+    border: none; 
+    color: #718EBF;
+}
+
+.table-custom th,
+.table-custom td {
+    padding: 16px;
+    text-align: center;
+}
+
+/* action btn design (view details)*/
+.btn-custom {
+    border: 1px solid #718EBF;
+    background-color: transparent;
+    color: #718EBF;
+    border-radius: 16px;
+    padding: 2px;
+    width: 90%;
+}
+.btn-custom:hover, .btn-custom:active, .btn-custom:focus {
+    background-color: #718EBF;
+    border-color: #718EBF;
+    color: #ffffff;
+}
+
+
+
+.sidebar {
+    height: 100vh;
+    width: 200px;
+    position: relative;
+    float: left;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    padding-top: 20px;
+}
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    border-left: 5px solid transparent;
+}
+.sidebar .nav-link.active {
+    color: #12CF8A;
+    border-left: 5px solid #12CF8A;
+    background-color: #e9f7f3;
+}
+.nav-link:hover {
+    color: #12CF8A;
+}
+.icon {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.main-content-wrapper {
+    margin-left: 200px;
+    padding: 20px;
+}
+
+.addresses-card {
+    max-height: 250px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.card h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card .form-control-plaintext {
+    border: none;
+    padding: .375rem .75rem;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    border-radius: .25rem;
+    color: #6c757d;
+}
+
+.card .form-control-plaintext.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.badge-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.card-custom {
+    border-radius: 20px;
+    padding: 20px;
+}
+.card-custom img {
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-custom .info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.card-custom .info p {
+    margin: 0;
+    color: gray;
+}
+.card-custom .info .price {
+    font-size: 18px;
+    margin-top: 10px;
+}
+.card-custom .info .price .label {
+    display: block;
+    color: #000;
+}
+.card-custom .info .price .amount {
+    display: block;
+    color: #000;
+    font-weight: bold;
+}
+.card-fees {
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+.card-fees .section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.card-fees .section-content {
+    margin-bottom: 15px;
+}
+.font-weight-bold {
+    font-weight: bold;
+}
+.completed-section {
+    margin-top: 20px;
+}
+.completed-section h3 {
+    background-color: #e0f7fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0;
+    font-size: 18px;
+    color: #00796b;
+    font-weight: bold;
+}
+.completed-section .details {
+    margin-top: 10px;
+    color: gray;
+}
+.completed-section .details span {
+    display: block;
+    margin: 3px 0;
+}
+.completed-section .details strong {
+    font-weight: bold;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.card .info {
+    margin-bottom: 10px;
+}
+.card .info h4 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+.card .info .rating {
+    color: #FFD700;
+}
+.card .info .rating span {
+    font-size: 16px;
+    color: #666;
+}
+.card .details {
+    width: 100%;
+}
+.card .details .penalty, .card .details .commission {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.card .details .penalty {
+    background-color: #ffdddd;
+}
+.card .details .commission {
+    background-color: #ddfaff;
+}
+.profile-img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+.card .row {
+    align-items: center;
+}
+.card {
+    box-shadow: none;
+}
+.delete-button-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+}
+
+.scrollable-card {
+    max-height: 300px; 
+    overflow-y: auto;
+}

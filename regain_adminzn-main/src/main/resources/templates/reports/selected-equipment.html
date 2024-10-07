@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Report Select</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div th:replace="~{fragments/header :: header(activePage = 'reports')}"></div>
+    <div th:replace="~{fragments/navigation :: sidebar(activePage='reports')}"></div>
+
+    <div class="main-content-wrapper">
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a th:href="@{/reports}" style="text-decoration: none; color: black;">
+                            <p class="bi bi-chevron-left" style="color: black;"> Back</p>
+                        </a>  
+                        <div class="card h-100 p-4 position-relative">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-4">
+                                        <h4>ReportID: <span th:text="'#' + ${report.reportId}"></span></h4>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Reporter</label>
+                                        <div class="form-control-plaintext bg-light p-2 rounded">
+                                            <span th:text="${report.reporter}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Reason Category</label>
+                                        <div class="form-control-plaintext bg-light p-2 rounded">
+                                            <span th:text="${report.category}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Timestamp</label>
+                                        <div class="form-control-plaintext bg-light p-2 rounded">
+                                            <span th:text="${#temporals.format(report.timestamp, 'MMM d, yyyy hh:mma')}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Details</label>
+                                        <div class="form-control-plaintext bg-light p-2 rounded" style="height: 200px; overflow-y: auto;">
+                                            <span th:text="${report.details}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 border p-2 mb-2 rounded">
+                        <!-- Equipment details -->
+                        <div class="text-left p-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h4>Reported Equipment</h4>
+                            </div>
+                            <div class="chevron-icon">
+                                <a th:href="@{/equipments/details/{id}(id=${equipment.id})}">
+                                    <i class="bi bi-chevron-right" style="color: black;"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-left p-4">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-4">
+                                    <img th:src="${equipment.imagePath}" 
+                                         class="rounded-circle img-fluid mb-3"
+                                         style="width: 220px; height: 220px;" 
+                                         alt="Equipment Image">
+                                </div>
+                                <div class="col-md-8">
+                                    <h2 th:text="${equipment.name}"></h2>
+                                    <p th:text="${equipment.location.fullAddress()}"></p>
+                                    <p th:text="'₱' + ${#numbers.formatDecimal(equipment.price, 0, 'COMMA', 2, 'POINT')}"></p>
+                                    <p th:text="'@' + ${equipment.renter.userName}"></p>
+                                </div>                                            
+                            </div>
+                            <br> 
+                            
+                            <!-- Reported Reports -->
+                            <!-- <div class="border p-2 mb-2 rounded" style="max-height: 150px; overflow-y: auto;">
+                                <div th:if="${not #lists.isEmpty(report.equipment.reportedReports)}">
+                                    <div th:each="reportedReport, iterStat : ${report.equipment.reportedReports}">
+                                        <div th:unless="${reportedReport.reportId == report.reportId}">
+                                            <a th:href="@{/reports/equipmentreportselect(reportId=${reportedReport.reportId})}" style="text-decoration: none; color: inherit;">
+                                                <div class="penalty-card">
+                                                    <div class="d-flex justify-content-between">
+                                                        <h4 th:text="${reportedReport.category}"></h4>
+                                                        <i class="bi bi-chevron-right"></i>
+                                                    </div>
+                                                    <p class="text-truncate" style="max-width: 100%;" th:text="${reportedReport.details}"></p>
+                                                </div>
+                                            </a>
+                                            <hr th:if="${(report.equipment.reportedReports.size()-1) > 1}"/>
+                                        </div>
+                                    </div>
+                                </div>                                                                                        
+                                <div th:if="${#lists.isEmpty(report.equipment.reportedReports) || (#lists.size(report.equipment.reportedReports) == 1 and report.equipment.reportedReports[0].reportId == report.reportId)}">
+                                    <p>No other reports found.</p>
+                                </div>
+                            </div> -->
+
+                            <div th:replace="fragments/reportButtons :: reportButtons(report=${report})"></div>                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+   
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-kSThhkVZISlZz3IGLczR5Pbz7r5VDFcJMrdUpb8ibihD6W4O/zBCd7Z2uRT1ELHs" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+</body>
+</html>

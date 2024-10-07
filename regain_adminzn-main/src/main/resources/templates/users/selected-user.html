@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Select</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div th:replace="~{fragments/header :: header(activePage = 'users')}"></div>
+    <div th:replace="~{fragments/navigation :: sidebar(activePage='users')}"></div>
+
+    <div class="main-content-wrapper">
+        <div class="main-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a th:href="@{/users}" style="text-decoration: none; color: black;">
+                            <p class="bi bi-chevron-left" style="color: black;"> Back</p>
+                        </a>                        
+                        <div class="card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <div class="row">
+                                    <div class="col-md-2 text-center">
+                                        <img th:src="${user.profileImagePath}" 
+                                            class="rounded-circle img-fluid"
+                                            style="width: 220px; height: 220px;" 
+                                            alt="Profile Picture">
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <section>
+                                            <h1 th:text="${user.firstName + ' ' + user.lastName}"></h1>
+                                            <p th:text="${user.userName}"></p>
+                                            <p th:if="${user.role == 'junkshop'}" th:text="${user.junkshopName}"></p>
+
+                                            <!-- <div class="d-flex align-items-center">
+                                                <span th:each="star : ${#numbers.sequence(1, 5)}">
+                                                    <i th:class="${star <= user.rating ? 'bi bi-star-fill text-warning' : star - 0.5 <= user.rating ? 'bi bi-star-half text-warning' : 'bi bi-star text-warning'}"></i>
+                                                </span>
+                                                &nbsp;
+                                                <span th:text="${user.rating}"></span>
+                                            </div> -->
+                                            <div class="mt-2 d-flex">
+                                                <div class="mr-3">
+                                                    <i class="bi bi-envelope-fill"></i>
+                                                </div>
+                                                <div>
+                                                    <span th:text="${user.email}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 d-flex">
+                                                <div class="mr-3">
+                                                    <i class="bi bi-telephone-fill"></i>
+                                                </div>
+                                                <div>
+                                                    <span th:text="${user.phone}"></span>
+                                                </div>
+                                            </div>
+
+                                        </section>
+                                    </div>                                    
+
+                                    <div class="col-md-6" th:if="${user.addresses != null}">
+                                        <!-- Display shipping addresses -->
+                                        <div class="card addresses-card" th:if="${not #lists.isEmpty(user.addresses)}">
+                                            <div class="card-body">
+                                                <h3 th:text="${user.addresses.size() == 1 ? 'Shipping Address:' : 'Shipping Addresses:'}"></h3>
+                                                <br>
+                                                <ol>
+                                                    <li th:each="address, iterStat : ${user.addresses}">
+                                                        <span th:text="${address.unitNumber + ', ' + address.street + ', ' + address.barangay + ', ' + address.city + ', ' + address.province + ' ' + address.zipCode}"></span>
+                                                        <hr th:if="${!iterStat.last}"/> 
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div style="background-color: #FFEBEE; padding: 1rem; font-weight: bold">
+                                            <span th:text="${user.penaltyPoints + ' Penalty Points'}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div style="background-color: #DCFAF8; padding: 1rem; font-weight: bold;">
+                                            <span th:if="${user.commissionBalance == 0}" th:text="'₱ 0.00 Commission Balance'"></span>
+                                            <span th:if="${user.commissionBalance != 0}" th:text="'₱ ' + ${#numbers.formatDecimal(user.commissionBalance, 0, 'COMMA', 2, 'POINT')} + ' Commission Balance'"></span>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                
+                                
+                                <!-- Tabs for reports, product listings, equipment listings, transactions -->
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <ul class="nav nav-tabs" id="userTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-bs-toggle="tab" href="#reports" role="tab" aria-controls="reports" aria-selected="true">Reports</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="tab" href="#product-listings" role="tab" aria-controls="product-listings" aria-selected="false">Product Listings</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-bs-toggle="tab" href="#equipment-listings" role="tab" aria-controls="equipment-listings" aria-selected="false">Equipment Listings</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+                                            <div id="reports" class="tab-pane fade show active" role="tabpanel" aria-labelledby="reports-tab">
+                                                <div class="row mt-4">
+                                                    <div th:if="${not #lists.isEmpty(user.reportedReports)}">
+                                                        <div th:each="reportedReport, iterStat : ${user.reportedReports}">
+                                                            <!-- <a href="#report" style="text-decoration: none; color: inherit;"> -->
+                                                                <div class="penalty-card">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h4 th:text="${reportedReport.category}"></h4>
+                                                                        <!-- <i class="bi bi-chevron-right"></i> -->
+                                                                    </div>
+                                                                    <p class="text-truncate" style="max-width: 100%;" th:text="${reportedReport.details}"></p>
+                                                                </div>
+                                                            <!-- </a> -->
+                                                            <hr th:if="${!iterStat.last}">
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${#lists.isEmpty(user.reportedReports)}">
+                                                        <p>No reports found.</p>
+                                                    </div> 
+                                                </div>
+                                            </div>
+
+                                            <div id="product-listings" class="tab-pane fade" role="tabpanel" aria-labelledby="product-listings-tab">
+                                                <div class="row mt-4">
+                                                    <div th:if="${not #lists.isEmpty(products)}">
+                                                        <div th:each="product, iterStat : ${products}">
+                                                            <!-- <a href="#productId" style="text-decoration: none; color: inherit;"> -->
+                                                                <div class="penalty-card">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h4 th:text="${product.productName}"></h4>
+                                                                        <!-- <i class="bi bi-chevron-right"></i> -->
+                                                                    </div>
+                                                                    <p th:text="${product.categoryName}"></p>
+                                                                    <p th:text="'₱' + ${#numbers.formatDecimal(product.soldPrice, 0, 'COMMA', 2, 'POINT')}"></p>
+                                                                </div>
+                                                            <!-- </a> -->
+                                                            <hr th:if="${!iterStat.last}">
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${#lists.isEmpty(products)}">
+                                                        <p>No products found.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <div id="equipment-listings" class="tab-pane fade" role="tabpanel" aria-labelledby="equipment-listings-tab">
+                                                <div class="row mt-4">
+                                                    <div th:if="${not #lists.isEmpty(equipment)}">
+                                                        <div th:each="equipment, iterStat : ${equipment}">
+                                                            <!-- <a href="#equipmentId" style="text-decoration: none; color: inherit;"> -->
+                                                                <div class="penalty-card">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <h4 th:text="${equipment.name}"></h4>
+                                                                        <!-- <i class="bi bi-chevron-right"></i> -->
+                                                                    </div>
+                                                                    <p th:text="'₱' + ${#numbers.formatDecimal(equipment.price, 0, 'COMMA', 2, 'POINT')}"></p>
+                                                                </div>
+                                                            <!-- </a> -->
+                                                            <hr th:if="${!iterStat.last}">
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${#lists.isEmpty(equipment)}">
+                                                        <p>No equipment found.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Buttons for actions -->
+                                <div class="mt-auto d-flex justify-content-end">
+                                    <form th:action="@{/users/{id}/restrict(id=${user.id})}" method="post" onsubmit="return confirm('Are you sure you want to restrict this user?');">
+                                        <button type="submit" class="btn btn-outline-danger mr-2">Restrict</button>
+                                    </form>
+                                    <form th:action="@{/users/{id}/freeze(id=${user.id})}" method="post" onsubmit="return confirm('Are you sure you want to freeze this user?');">
+                                        <button type="submit" class="btn btn-outline-warning mr-2">Freeze</button>
+                                    </form>
+                                    <form th:action="@{/users/{id}/ban(id=${user.id})}" method="post" onsubmit="return confirm('Are you sure you want to ban this user?');">
+                                        <button type="submit" class="btn btn-outline-dark">Ban</button>
+                                    </form>
+                                </div>                                
+                                </div>
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- Bootstrap JS and dependencies -->
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+</body>
+</html>

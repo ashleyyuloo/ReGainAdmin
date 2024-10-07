@@ -1,0 +1,55 @@
+body{
+    background-color: #F5F7FA; 
+}
+
+h1 {
+    color: #3c3c3c;
+}
+
+.Logo{
+    height: 40px; 
+    vertical-align: middle; 
+    margin-right: 10px;
+}
+
+.login-container {
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); 
+    max-width: 400px;
+    margin: auto;
+    margin-top: 100px; 
+    padding: 30px;
+}
+.login-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-control {
+    height: 48px; 
+    color: #3c3c3c;
+}
+.btn-login {
+    width: 100%;
+    height: 48px;
+    background-color: #12CF8A;
+    color: #FFFAFA;
+    border-color: transparent;
+    transition: background-color 0.3s ease; 
+}
+.btn-login:hover {
+    background-color: #10BC7D; 
+    border-color: transparent;
+}
+
+.error-message {
+    color: #dc3545; 
+    font-size: 14px;
+    margin-top: 5px;
+}
